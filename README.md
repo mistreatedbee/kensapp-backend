@@ -1,25 +1,30 @@
 # Kens App Backend
 
-This minimal Express + Mongoose backend connects to your MongoDB Atlas instance.
+Express and MongoDB API for the Kens App storefront and admin dashboard.
 
-Setup
+## Local Setup
 
-1. Copy `.env.example` to `.env` and set `MONGODB_URI`.
-2. Run `npm install` inside `server/`.
-3. Start with `npm start` or `npm run dev`.
+1. Copy `.env.example` to `.env`.
+2. Set `MONGODB_URI`, `JWT_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, and Cloudinary credentials.
+3. Set `CLIENT_ORIGIN=http://localhost:5173` for local development.
+4. Run `npm install`.
+5. Start with `npm start` or `npm run dev`.
 
-Docker
+The first admin user is created automatically from `ADMIN_EMAIL` and `ADMIN_PASSWORD` when the server connects to MongoDB.
 
-Build and run locally with Docker:
+## Required Environment Variables
 
-```bash
-docker build -t kensapp-backend .
-docker run -e MONGODB_URI="$MONGODB_URI" -p 4000:4000 kensapp-backend
-```
+- `MONGODB_URI`
+- `JWT_SECRET`
+- `ADMIN_EMAIL`
+- `ADMIN_PASSWORD`
+- `ADMIN_NAME`
+- `CLIENT_ORIGIN`
+- `CLOUDINARY_CLOUD_NAME`
+- `CLOUDINARY_API_KEY`
+- `CLOUDINARY_API_SECRET`
 
-Render deployment notes
+## Render Deployment
 
-- If you use Render's Docker option it will pick up this `Dockerfile` automatically.
-- If you don't use Docker, set the service runtime to Node and set the root to `server`.
-- Ensure the `MONGODB_URI` environment variable is set in your Render service settings.
-
+Use the included `render.yaml` or create a Node web service with root set to `server`.
+Set all required environment variables in Render, then set the frontend `VITE_API_URL` to the Render service URL in Vercel.

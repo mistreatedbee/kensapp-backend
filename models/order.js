@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { ORDER_STATUSES } = require('../lib/orderStatuses');
 
 const orderItemSchema = new mongoose.Schema({
   productId: String,
@@ -19,7 +20,11 @@ const orderSchema = new mongoose.Schema({
   items: [orderItemSchema],
   subtotal: Number,
   total: Number,
-  status: { type: String, default: 'New' }
+  status: {
+    type: String,
+    enum: ORDER_STATUSES,
+    default: 'New'
+  }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Order', orderSchema);
