@@ -5,10 +5,13 @@ const cors = require('cors');
 
 const app = express();
 app.use(express.json());
-app.use(cors({
+
+const corsOptions = {
   origin: process.env.CLIENT_ORIGIN ? process.env.CLIENT_ORIGIN.split(',') : true,
-  credentials: true
-}));
+  credentials: true,
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 const MONGODB_URI = process.env.MONGODB_URI || '';
 
