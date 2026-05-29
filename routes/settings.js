@@ -7,7 +7,7 @@ const { broadcast } = require('../lib/events');
 const DEFAULT_SETTINGS = {
   _id: 'store_settings',
   storeName: 'Kenmok CC',
-  logo: '/logo.svg',
+  logo: '/logo.jpg',
   tagline: 'Clean spaces. Fresh impressions. Reliable service.',
   description: 'Kenmok CC supplies cleaning products, fragrances and pest control services for homes and businesses.',
   contactPerson: '',

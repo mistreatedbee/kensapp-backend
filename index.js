@@ -52,7 +52,7 @@ app.get('/api/events', eventsHandler);
 
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 app.get('/api/info', (req, res) => {
-  res.json({ name: 'Kens App Backend', env: process.env.NODE_ENV || 'development' });
+  res.json({ name: 'Kenmok CC Backend', env: process.env.NODE_ENV || 'development' });
 });
 
 app.use((err, req, res, next) => {

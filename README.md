@@ -1,6 +1,6 @@
-# Kens App Backend
+# Kenmok CC Backend
 
-Express and MongoDB API for the Kens App storefront and admin dashboard.
+Express and MongoDB API for the Kenmok CC storefront and admin dashboard.
 
 ## Local Setup
 

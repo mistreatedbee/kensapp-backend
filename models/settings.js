@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const settingsSchema = new mongoose.Schema({
   _id: { type: String, default: 'store_settings' },
   storeName: { type: String, default: 'Kenmok CC' },
-  logo: { type: String, default: '/logo.svg' },
+  logo: { type: String, default: '/logo.jpg' },
   tagline: { type: String, default: 'Clean spaces. Fresh impressions. Reliable service.' },
   description: { type: String, default: 'Kenmok CC supplies cleaning products, fragrances and pest control services for homes and businesses.' },
   contactPerson: String,
