@@ -3,6 +3,8 @@ const router = express.Router();
 const Order = require('../models/order');
 const auth = require('../middleware/auth');
 const { ORDER_STATUSES } = require('../lib/orderStatuses');
+const { broadcast } = require('../lib/events');
+const { upsertCustomerFromOrder, recalculateCustomerForOrder } = require('../lib/customers');
 
 // POST /api/orders — public (customer places order)
 router.post('/', async (req, res) => {
@@ -12,6 +14,9 @@ router.post('/', async (req, res) => {
       status: ORDER_STATUSES.includes(req.body.status) ? req.body.status : 'New'
     });
     await order.save();
+    await upsertCustomerFromOrder(order);
+    broadcast('orders', { resource: 'orders' });
+    broadcast('customers', { resource: 'customers' });
     res.status(201).json(order);
   } catch (err) {
     res.status(400).json({ error: err.message });
@@ -62,9 +67,25 @@ router.patch('/:id/status', auth, async (req, res) => {
       { new: true, runValidators: true }
     );
     if (!order) return res.status(404).json({ error: 'Order not found' });
+    await upsertCustomerFromOrder(order);
+    broadcast('orders', { resource: 'orders' });
+    broadcast('customers', { resource: 'customers' });
     res.json(order);
   } catch (err) {
     res.status(400).json({ error: err.message });
+  }
+});
+
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    const order = await Order.findByIdAndDelete(req.params.id);
+    if (!order) return res.status(404).json({ error: 'Order not found' });
+    await recalculateCustomerForOrder(order);
+    broadcast('orders', { resource: 'orders' });
+    broadcast('customers', { resource: 'customers' });
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 

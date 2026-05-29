@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const { eventsHandler } = require('./lib/events');
 
 const app = express();
 app.use(express.json());
@@ -44,8 +45,10 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/products', require('./routes/products'));
 app.use('/api/categories', require('./routes/categories'));
 app.use('/api/orders', require('./routes/orders'));
+app.use('/api/customers', require('./routes/customers'));
 app.use('/api/settings', require('./routes/settings'));
 app.use('/api/uploads', require('./routes/uploads'));
+app.get('/api/events', eventsHandler);
 
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 app.get('/api/info', (req, res) => {
