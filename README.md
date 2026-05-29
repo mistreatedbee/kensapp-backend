@@ -28,3 +28,4 @@ The first admin user is created automatically from `ADMIN_EMAIL` and `ADMIN_PASS
 
 Use the included `render.yaml` or create a Node web service with root set to `server`.
 Set all required environment variables in Render, then set the frontend `VITE_API_URL` to the Render service URL in Vercel.
+For production CORS, set Render's `CLIENT_ORIGIN` value to `https://kens-app.vercel.app` or a comma-separated list such as `http://localhost:5173,https://kens-app.vercel.app`.

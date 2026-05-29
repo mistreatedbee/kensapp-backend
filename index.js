@@ -6,8 +6,17 @@ const cors = require('cors');
 const app = express();
 app.use(express.json());
 
+function parseClientOrigins(value) {
+  if (!value) return true;
+
+  return value
+    .split(',')
+    .map((origin) => origin.trim().replace(/^['"]|['"]$/g, ''))
+    .filter(Boolean);
+}
+
 const corsOptions = {
-  origin: process.env.CLIENT_ORIGIN ? process.env.CLIENT_ORIGIN.split(',') : true,
+  origin: parseClientOrigins(process.env.CLIENT_ORIGIN),
   credentials: true,
 };
 app.use(cors(corsOptions));
